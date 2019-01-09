@@ -74,9 +74,8 @@ fast_memchr(void *haystack, int n, size_t len) {
 	ptr += sizeof(uintptr_t) - (((uintptr_t)start_ptr) & align);
 
 	while (loop_size == LOOP_SIZE && ptr <= (end_ptr - loop_size)) {
-		uintptr_t a, b;
-		memcpy(&a, ptr, sizeof(uintptr_t));
-		memcpy(&b, ptr + sizeof(uintptr_t), sizeof(uintptr_t));
+		uintptr_t a = read_unaligned_word(ptr);
+		uintptr_t b = read_unaligned_word(ptr + sizeof(uintptr_t));
 		bool eqa = contains_zero_byte(a ^ vn1);
 		bool eqb = contains_zero_byte(b ^ vn1);
 
