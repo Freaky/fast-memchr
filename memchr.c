@@ -41,7 +41,7 @@ read_unaligned_word(uint8_t *ptr) {
 
 static void *
 forward_search(uint8_t *ptr, uint8_t *end_ptr, uint8_t n) {
-	while (ptr <= end_ptr) {
+	while (ptr < end_ptr) {
 		if (*ptr == n) {
 			return (void *)ptr;
 		}
@@ -59,7 +59,7 @@ fast_memchr(void *haystack, int n, size_t len) {
 	uintptr_t align = sizeof(uintptr_t) - 1;
 
 	uint8_t *start_ptr = haystack;
-	uint8_t *end_ptr = start_ptr + (len - 1);
+	uint8_t *end_ptr = start_ptr + len;
 	uint8_t *ptr = start_ptr;
 
 	if (len < sizeof(uintptr_t)) {
@@ -73,7 +73,7 @@ fast_memchr(void *haystack, int n, size_t len) {
 
 	ptr += sizeof(uintptr_t) - (((uintptr_t)start_ptr) & align);
 
-	while (loop_size == LOOP_SIZE && ptr <= (end_ptr - loop_size)) {
+	while (loop_size == LOOP_SIZE && ptr < (end_ptr - loop_size)) {
 		uintptr_t a = read_unaligned_word(ptr);
 		uintptr_t b = read_unaligned_word(ptr + sizeof(uintptr_t));
 		bool eqa = contains_zero_byte(a ^ vn1);
