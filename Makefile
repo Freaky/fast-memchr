@@ -2,7 +2,7 @@ PROG=bench
 SRCS=bench.c memchr.c
 SSE2_SRCS=bench.c sse2_memchr.c
 
-CFLAGS=-O2 -msse2 -Weverything
+CFLAGS=-O2 -std=gnu99 -msse2 -Wall
 
 OBJ=${SRCS:.c=.o}
 SSE2OBJ=${SSE2_SRCS:.c=.o}
