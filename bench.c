@@ -1,5 +1,6 @@
 
 #include <fcntl.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -70,7 +71,7 @@ int main(void) {
 		return 64;
 	}
 
-	printf("char\tfast\tlibc\twinner\n");
+	printf("char\tfast\tlibc\tdifference\n");
 
 	for (int i=0; i < 255; i++) {
 		double start, end, fast_time, libc_time;
